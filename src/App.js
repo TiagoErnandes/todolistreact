@@ -15,6 +15,7 @@ function App() {
       status: false,
     };
     setList([...list, task]);
+    e.target.task.value = "";
   }
 
   function done(item) {
@@ -33,15 +34,12 @@ function App() {
 
 
   function alterTask(event, item) {
-
     const newList = list.map((t) => {
       if (t.id === item.id) t.name = event.target.value;
       return t;
     });
     setList(newList);
   }
-
-
 
   return (
     <div className="App">
@@ -54,7 +52,7 @@ function App() {
         {!complete && list.map((item, index) => {
           return (
             <li style={item.status ? { textDecoration: "line-through" } : {}} key={index}  >
-              <input type="text" value={item.name} onChange={(e) => alterTask(e, item)} />
+              <input type="text" defaultValue={item.name} onChange={(e) => alterTask(e, item)} />
               <button onClick={() => done(item)}>
                 {item.status ?
                   <FaRegCheckSquare /> :
